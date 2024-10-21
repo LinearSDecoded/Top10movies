@@ -1,0 +1,24 @@
+<div class="movie-list-container">
+  <h1>Top 10 Movies</h1>
+  <div class="button-container">
+    <input matInput placeholder="Search movies" [(ngModel)]="searchText" (input)="filterMovies()">
+    <button mat-raised-button color="primary" (click)="toggleSortOrder()">
+      Sort {{ isAscending ? 'Ascending' : 'Descending' }}
+    </button>
+  </div>
+  <div class="movies-list">
+<mat-card *ngFor="let movie of filteredMovies" class="movie-card">
+  <mat-card-header>
+    <mat-card-title [innerHTML]="movie.titleText.text | highlight:searchText"></mat-card-title>
+    <mat-card-subtitle>{{ movie.releaseYear.year }}</mat-card-subtitle>
+  </mat-card-header>
+  <img class="movie-poster" mat-card-image [src]="movie.primaryImage.imageUrl" alt="{{ movie.titleText.text }}">
+  <mat-card-content>
+    <div class="rating-container">
+    <b class="rating-text">Rating: {{ movie.ratingsSummary.aggregateRating }}</b>
+    <p class="plot-text" [innerHTML]="movie.plot.plotText.plainText | highlight:searchText"></p>
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>
+</div>
